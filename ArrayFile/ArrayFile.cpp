@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <ctime>
 #include <cmath>
@@ -45,8 +45,8 @@ int InputRndArray(double A[])
         // Numbers -100-100
         r1 = rand() % 201 - 100;
         r2 = rand() % 201 - 100;
-        A[i] = 100.0 * r1 // Calculate random element
-        / (1.0 + r2);     // Prevent division by 0
+        A[i] = 100.0 * r1    // Calculate random element
+               / (1.0 + r2); // Prevent division by 0
         cout << A[i] << " ";
     }
     return size;
@@ -58,7 +58,7 @@ void WriteArrayTextFile(int n, double *arr, const char *fileName)
     ofstream fout(fileName);
     if (fout.fail()) // Check for failure
         return;
-    fout << n << endl; // Write size to file
+    fout << n << endl;          // Write size to file
     for (int i = 0; i < n; i++) // Write elements to file
         fout << arr[i] << "   ";
     fout.close();
@@ -88,9 +88,9 @@ void WriteArrayBinFile(int n, double *arr, const char *fileName)
     ofstream bfout(fileName, ios_base::binary);
     if (bfout.fail()) // Check for failure
         return;
-    bfout.write((const char *)&n, sizeof(int)); // Write size to file
+    bfout.write((const char *)&n, sizeof(int));                  // Write size to file
     streamsize cn = static_cast<streamsize>(n) * sizeof(double); // Calculate the number of bytes to write for the array
-    bfout.write((const char *)arr, cn); // Write array to file
+    bfout.write((const char *)arr, cn);                          // Write array to file
     bfout.close();
 }
 
@@ -145,10 +145,10 @@ void RemoveNegative(double A[], int &size)
         if (A[i] >= 0)
         {
             A[newSize] = A[i]; // Copy element to new variable if non-negative
-            newSize++; // Increment size
+            newSize++;         // Increment size
         }
     }
-    size = newSize;  // Change to a new size variable
+    size = newSize; // Change to a new size variable
 }
 
 /*
@@ -166,14 +166,14 @@ int FindFirstMaxNegativeIndex(double A[], int size, double T)
         if (A[i] < 0 && A[i] > maxNegative && i < T)
         {
             max_index = A[i]; // Update max negative
-            max_index = i; // Update max negative index
+            max_index = i;    // Update max negative index
         }
     }
     return max_index;
 }
 
 /*
-адано a,b координати школи та (x1, y1),(x2, y2),..., (xn, yn)(n<=100) - координати будинків.
+Задано a, b координати школи та (x1, y1),(x2, y2),..., (xn, yn)(n<=100) - координати будинків.
 Розробити програму, яка обчислює середню віддаль від будинків до школи.
 */
 
@@ -291,8 +291,11 @@ int main()
                     double A[max_size];
                     int size = ConsoleInputArray(A);
                     double T;
-                    cout << "Enter T ";
-                    cin >> T;
+                    do
+                    {
+                        cout << "Enter T ";
+                        cin >> T;
+                    } while (T <= 0 || T >= size);
                     int index = FindFirstMaxNegativeIndex(A, size, T);
                     if (index != -1)
                     {
@@ -310,8 +313,11 @@ int main()
                     double A[max_size];
                     int size = InputRndArray(A);
                     double T;
-                    cout << "Enter T ";
-                    cin >> T;
+                    do
+                    {
+                        cout << "Enter T ";
+                        cin >> T;
+                    } while (T <= 0 || T >= size);
                     int index = FindFirstMaxNegativeIndex(A, size, T);
                     if (index != -1)
                     {
@@ -329,8 +335,11 @@ int main()
                     double A[max_size];
                     int size = ConsoleInputArray(A);
                     double T;
-                    cout << "Enter T ";
-                    cin >> T;
+                    do
+                    {
+                        cout << "Enter T ";
+                        cin >> T;
+                    } while (T <= 0 || T >= size);
                     WriteArrayTextFile(size, A, "2.txt");
                     size = ReadArrayTextFile(max_size, A, "2.txt");
                     int index = FindFirstMaxNegativeIndex(A, size, T);
@@ -350,8 +359,11 @@ int main()
                     double A[max_size];
                     int size = ConsoleInputArray(A);
                     double T;
-                    cout << "Enter T ";
-                    cin >> T;
+                    do
+                    {
+                        cout << "Enter T ";
+                        cin >> T;
+                    } while (T <= 0 || T >= size);
                     WriteArrayBinFile(size, A, "2.bin");
                     int index = FindFirstMaxNegativeIndex(A, size, T);
                     if (index != -1)
@@ -383,9 +395,11 @@ int main()
             cin >> schoolX >> schoolY;
 
             int numBuildings;
-            cout << "Number of buildings ";
-            cin >> numBuildings;
-
+            do
+            {
+                cout << "Number of buildings ";
+                cin >> numBuildings;
+            } while (numBuildings <= 0);
             double totalDistance = 0.0;
             for (int i = 0; i < numBuildings; ++i)
             {
